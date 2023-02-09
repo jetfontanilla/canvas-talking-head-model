@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     await drawImage("body");
     await drawImage("eye-l");
     await drawImage("eye-r");
+    await drawImage("mouth-a");
 });
 
 // Viseme ID lookup
