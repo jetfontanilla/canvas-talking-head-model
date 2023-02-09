@@ -58,7 +58,7 @@ const frameLookup = {
 
 function drawMouthFrame(frameId) {
     ctx.fillStyle = "rgb(09, 81, 74)";
-    ctx.fillRec(195, 165, 110, 75);
+    ctx.fillRect(195, 165, 110, 75);
 
     const assetId = frameLookup[frameId];
     drawImage(assetId);
