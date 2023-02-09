@@ -74,9 +74,9 @@ async function playAudio() {
     
     ttsAudio.ontimeupdate = (event) => {
         const currentFrame = visemeData.find(frameData => {
-            return ttsAudio.currentTime * 1000 > frameData.offset;
+            return frameData.offset > ttsAudio.currentTime * 1000;
         });
-        drawMouthFrame(currentFrame.id);
+        drawMouthFrame(currentFrame?.id ?? 0);
     };
 
     ttsAudio.play();
