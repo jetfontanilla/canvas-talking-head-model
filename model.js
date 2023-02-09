@@ -65,21 +65,20 @@ function drawMouthFrame(frameId) {
 
 const ttsAudio = new Audio("tts.wav");
 async function playAudio() {
-    fetch(new Request("viseme.json"), {
+    const response = await fetch(new Request("viseme.json"), {
         method: "GET",
         mode: "no-cors"
-    }).then(response => {
-        console.log(response);
-        const visemeData = response.text();
-        console.log(visemeData);
     });
+    const visemeData = await response.json();
     
-
     ttsAudio.play();
 
     const PRECISION = 50; //in ms
     const intervalId = setInterval(() => {
-
+        const currentFrame = visemeData.find(frameData => {
+            return ttsAudio.currentTime * 1000 > frameData.offset;
+        });
+        drawMouthFrame(currentFrame.id);
     }, 50);
     clearInterval(intervalId);
 }
