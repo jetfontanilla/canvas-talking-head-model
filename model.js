@@ -71,14 +71,12 @@ async function playAudio() {
     });
     const visemeData = await response.json();
     
-    ttsAudio.play();
-
-    const PRECISION = 50; //in ms
-    const intervalId = setInterval(() => {
+    ttsAudio.ontimeupdate = (event) => {
         const currentFrame = visemeData.find(frameData => {
             return ttsAudio.currentTime * 1000 > frameData.offset;
         });
         drawMouthFrame(currentFrame.id);
-    }, 50);
-    clearInterval(intervalId);
+    };
+
+    ttsAudio.play();
 }
