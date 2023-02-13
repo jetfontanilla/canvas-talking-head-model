@@ -13,8 +13,19 @@ function loadImage(imageId) {
         };
     });
 }
+
+function loadImageBySrc(imageUrl) {
+    return new Promise(resolve => {
+        const image = new Image();
+        image.onload = () => {
+            resolve(image);
+        };
+        image.src = imageUrl;
+    });
+}
+
 async function drawImage(imageId) {
-    const image = await loadImage(imageId)
+    const image = await loadImage(imageId);
     ctx.drawImage(image, 0, 0);
 }
 
@@ -23,14 +34,16 @@ function clearEyes() {
     ctx.fillRect(167, 156, 40, 44);
     ctx.fillRect(293, 156, 40, 44);
 }
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 async function eyeBlink() {
     const leftEye = await loadImage("eye-l");
     const rightEye = await loadImage("eye-r");
 
-    const targetHeight = Math.floor(leftEye.height * 0.2)
+    const targetHeight = Math.floor(leftEye.height * 0.2);
     let height = leftEye.height;
     const ANIMATION_STEP = 20;
 
@@ -77,38 +90,11 @@ document.addEventListener("DOMContentLoaded", async function() {
     }, BLINK_INTERVAL);
 });
 
-// Viseme ID lookup
-const frameLookup = {
-    0: "mouth-a",
-    1: "mouth-d",
-    2: "mouth-h",
-    3: "mouth-e",
-    4: "mouth-c",
-    5: "mouth-c",
-    6: "mouth-b",
-    7: "mouth-f",
-    8: "mouth-c",
-    9: "mouth-d",
-    10: "mouth-e",
-    11: "mouth-h",
-    12: "mouth-c",
-    13: "mouth-e",
-    14: "mouth-c",
-    15: "mouth-b",
-    16: "mouth-f",
-    17: "mouth-c",
-    18: "mouth-g",
-    19: "mouth-b",
-    20: "mouth-d",
-    21: "mouth-x"
-};
-
-function drawMouthFrame(frameId) {
+async function drawMouthFrame(frameId) {
+    const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
     ctx.fillStyle = "rgb(90, 81, 74)";
     ctx.fillRect(200, 165, 100, 75);
-
-    const assetId = frameLookup[frameId];
-    drawImage(assetId);
+    ctx.drawImage(image, 0, 0);
 }
 
 const ttsAudio = new Audio("tts.wav");
