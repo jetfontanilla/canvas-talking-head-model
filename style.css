@@ -15,6 +15,11 @@ main {
     background: rgb(90, 81, 74);
     font-family: "Courier New", Verdana, serif;
     font-weight: bold;
+    cursor: pointer;
+}
+
+.btn:hover {
+    opacity: 0.7;
 }
 
 .d-none {
