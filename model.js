@@ -81,7 +81,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     await drawImage("body");
     await drawImage("eye-l");
     await drawImage("eye-r");
-    await loadImageBySrc(`assets/mouth-0.png`);
+    const image = await loadImageBySrc(`assets/mouth-0.png`);
+    ctx.drawImage(image, 0, 0);
 
     eyeBlink();
     const BLINK_INTERVAL = 3500;
