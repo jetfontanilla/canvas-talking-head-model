@@ -95,7 +95,7 @@ async function drawMouthFrame(frameId) {
     const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
     ctx.fillStyle = "rgb(90, 81, 74)";
     ctx.fillRect(200, 165, 100, 75);
-    ctx.drawImage(image, 0, frameId > 0 ? 5 : 0);
+    ctx.drawImage(image, 0, 0);
 }
 
 const ttsAudio = new Audio("tts.wav");
