@@ -14,10 +14,16 @@ function loadImage(imageId) {
     });
 }
 
+const imageCache = new Map();
 function loadImageBySrc(imageUrl) {
+    if (imageCache.has(imageUrl)) {
+        return Promise.resolve(imageCache.get(imageUrl))
+    }
+
     return new Promise(resolve => {
         const image = new Image();
         image.onload = () => {
+            imageCache.set(imageUrl, image);
             resolve(image);
         };
         image.src = imageUrl;
