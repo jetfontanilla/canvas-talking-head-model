@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     }, BLINK_INTERVAL);
 });
 
-const TRANSITION_DELAY = 50;
+let TRANSITION_DELAY = 50;
 async function drawMouthFrame(frameId) {
     const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
     const TRANSITION_STEPS = 5;
@@ -106,6 +106,7 @@ async function drawMouthFrame(frameId) {
     let step = 1;
     let opacity = 1 / TRANSITION_STEPS;
 
+    ctx.globalAlpha = opacity;
     while(step <= TRANSITION_STEPS) {
         ctx.fillStyle = `rgba(90, 81, 74, ${opacity})`;
         ctx.fillRect(200, 165, 100, 75);
@@ -113,6 +114,7 @@ async function drawMouthFrame(frameId) {
         await sleep(TRANSITION_PERIOD);
         step++;
     }
+    ctx.globalAlpha = 1;
 }
 
 const ttsAudio = new Audio("tts.wav");
