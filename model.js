@@ -97,24 +97,25 @@ document.addEventListener("DOMContentLoaded", async function() {
     }, BLINK_INTERVAL);
 });
 
-let TRANSITION_DELAY = 50;
+let TRANSITION_DELAY = 60;
 async function drawMouthFrame(frameId) {
     const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
-    const TRANSITION_STEPS = 5;
+    const TRANSITION_STEPS = 3;
     const TRANSITION_PERIOD = TRANSITION_DELAY / TRANSITION_STEPS;
 
     let step = 1;
     let opacity = 1 / TRANSITION_STEPS;
 
+    ctx.save();
     ctx.globalAlpha = opacity;
     while(step <= TRANSITION_STEPS) {
-        ctx.fillStyle = `rgba(90, 81, 74, ${opacity})`;
+        ctx.fillStyle = `rgb(90, 81, 74)`;
         ctx.fillRect(200, 165, 100, 75);
         ctx.drawImage(image, 0, 0);
         await sleep(TRANSITION_PERIOD);
         step++;
     }
-    ctx.globalAlpha = 1;
+    ctx.restore();
 }
 
 const ttsAudio = new Audio("tts.wav");
