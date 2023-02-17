@@ -109,6 +109,10 @@ async function drawMouthFrame(frameId) {
     while(step <= TRANSITION_STEPS) {
         ctx.fillStyle = `rgba(90, 81, 74, ${opacity})`;
         ctx.fillRect(200, 165, 100, 75);
+        ctx.save();
+        ctx.globalAlpha = opacity;
+        ctx.drawImage(image, 0, 0);
+        ctx.restore();
         await sleep(TRANSITION_PERIOD);
         step++;
     }
