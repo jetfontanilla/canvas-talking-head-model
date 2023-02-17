@@ -97,10 +97,10 @@ document.addEventListener("DOMContentLoaded", async function() {
     }, BLINK_INTERVAL);
 });
 
-const TRANSITION_DELAY = 90;
+const TRANSITION_DELAY = 50;
 async function drawMouthFrame(frameId) {
     const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
-    const TRANSITION_STEPS = 3;
+    const TRANSITION_STEPS = 5;
     const TRANSITION_PERIOD = TRANSITION_DELAY / TRANSITION_STEPS;
 
     let step = 1;
@@ -126,7 +126,7 @@ async function playAudio() {
 
     ttsAudio.ontimeupdate = (event) => {
         const currentFrame = visemeData.find(frameData => {
-            return frameData.offset - TRANSITION_DELAY > ttsAudio.currentTime * 1000;
+            return frameData.offset - TRANSITION_DELAY >= ttsAudio.currentTime * 1000;
         });
         drawMouthFrame(currentFrame?.id ?? 0);
     };
