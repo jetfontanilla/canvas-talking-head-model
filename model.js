@@ -100,19 +100,16 @@ document.addEventListener("DOMContentLoaded", async function() {
 let TRANSITION_DELAY = 60;
 async function drawMouthFrame(frameId) {
     const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
-    const TRANSITION_STEPS = 3;
+    const TRANSITION_STEPS = 6;
     const TRANSITION_PERIOD = TRANSITION_DELAY / TRANSITION_STEPS;
 
     let step = 1;
     let opacity = 1 / TRANSITION_STEPS;
 
-    while(step <= TRANSITION_STEPS) {
+    while(step < TRANSITION_STEPS) {
         ctx.fillStyle = `rgba(90, 81, 74, ${opacity})`;
         ctx.fillRect(200, 165, 100, 75);
-        ctx.save();
-        ctx.globalAlpha = opacity;
         ctx.drawImage(image, 0, 0);
-        ctx.restore();
         await sleep(TRANSITION_PERIOD);
         step++;
     }
@@ -133,7 +130,7 @@ async function playAudio() {
 
     ttsAudio.ontimeupdate = (event) => {
         const currentFrame = visemeData.find(frameData => {
-            return frameData.offset - TRANSITION_DELAY >= ttsAudio.currentTime * 1000;
+            return frameData.offset - (TRANSITION_DELAY / 2) >= ttsAudio.currentTime * 1000;
         });
         drawMouthFrame(currentFrame?.id ?? 0);
     };
