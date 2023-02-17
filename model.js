@@ -97,11 +97,22 @@ document.addEventListener("DOMContentLoaded", async function() {
     }, BLINK_INTERVAL);
 });
 
+const TRANSITION_DELAY = 90;
 async function drawMouthFrame(frameId) {
     const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
-    ctx.fillStyle = "rgb(90, 81, 74)";
-    ctx.fillRect(200, 165, 100, 75);
-    ctx.drawImage(image, 0, 0);
+    const TRANSITION_STEPS = 3;
+    const TRANSITION_PERIOD = TRANSITION_DELAY / TRANSITION_STEPS;
+
+    let step = 1;
+    let opacity = 1 / TRANSITION_STEPS;
+
+    while(step <= TRANSITION_STEPS) {
+        ctx.fillStyle = `rgba(90, 81, 74, ${opacity})`;
+        ctx.fillRect(200, 165, 100, 75);
+        ctx.drawImage(image, 0, 0);
+        await sleep(TRANSITION_PERIOD);
+        step++;
+    }
 }
 
 const ttsAudio = new Audio("tts.wav");
@@ -115,7 +126,7 @@ async function playAudio() {
 
     ttsAudio.ontimeupdate = (event) => {
         const currentFrame = visemeData.find(frameData => {
-            return frameData.offset > ttsAudio.currentTime * 1000;
+            return frameData.offset - TRANSITION_DELAY > ttsAudio.currentTime * 1000;
         });
         drawMouthFrame(currentFrame?.id ?? 0);
     };
