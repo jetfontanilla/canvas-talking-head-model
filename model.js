@@ -100,20 +100,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 let TRANSITION_DELAY = 60;
 async function drawMouthFrame(frameId) {
     const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
-    const TRANSITION_STEPS = 6;
-    const TRANSITION_PERIOD = TRANSITION_DELAY / TRANSITION_STEPS;
 
-    let step = 1;
-    let opacity = 1 / TRANSITION_STEPS;
-/*
-    while(step < TRANSITION_STEPS) {
-        ctx.fillStyle = `rgba(90, 81, 74, ${opacity})`;
-        ctx.fillRect(200, 165, 100, 75);
-        ctx.drawImage(image, 0, 0);
-        await sleep(TRANSITION_PERIOD);
-        step++;
-    }
-*/
     ctx.fillStyle = `rgb(90, 81, 74)`;
     ctx.fillRect(200, 165, 100, 75);
     ctx.drawImage(image, 0, 0);
