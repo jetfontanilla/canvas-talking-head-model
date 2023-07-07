@@ -105,7 +105,7 @@ async function drawMouthFrame(frameId) {
 
     let step = 1;
     let opacity = 1 / TRANSITION_STEPS;
-
+/*
     while(step < TRANSITION_STEPS) {
         ctx.fillStyle = `rgba(90, 81, 74, ${opacity})`;
         ctx.fillRect(200, 165, 100, 75);
@@ -113,16 +113,19 @@ async function drawMouthFrame(frameId) {
         await sleep(TRANSITION_PERIOD);
         step++;
     }
-
+*/
     ctx.fillStyle = `rgb(90, 81, 74)`;
     ctx.fillRect(200, 165, 100, 75);
     ctx.drawImage(image, 0, 0);
 }
 
-const ttsAudio = new Audio("tts.wav");
-
-async function playAudio() {
-    const response = await fetch(new Request("viseme.json"), {
+let ttsAudio;
+async function playAudio(name) {
+    if (ttsAudio) {
+        ttsAudio.pause();
+    }
+    ttsAudio = new Audio(`${name}.wav`);
+    const response = await fetch(new Request(`${name}.json`), {
         method: "GET",
         mode: "no-cors"
     });
