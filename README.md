@@ -11,3 +11,6 @@ This uses the following technologies:
 
 **Demo url:**
 https://jetfontanilla.github.io/canvas-talking-head-model/
+
+**For generating Viseme JSON Data:**
+https://github.com/jetfontanilla/azure-viseme-json
