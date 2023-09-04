@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", async function() {
     await drawImage("body");
     await drawImage("eye-l");
     await drawImage("eye-r");
-    const image = await loadImageBySrc(`assets/mouth-0.png`);
+    const image = await loadImageBySrc(`assets/mouth-v2/0.png`);
     ctx.drawImage(image, 0, 0);
 
     eyeBlink();
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 let TRANSITION_DELAY = 60;
 async function drawMouthFrame(frameId) {
-    const image = await loadImageBySrc(`assets/mouth-${frameId}.png`);
+    const image = await loadImageBySrc(`assets/mouth-v2/${frameId}.png`);
 
     ctx.fillStyle = `rgb(90, 81, 74)`;
     ctx.fillRect(200, 165, 100, 75);
