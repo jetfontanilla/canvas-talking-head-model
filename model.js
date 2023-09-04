@@ -103,7 +103,7 @@ async function drawMouthFrame(frameId) {
 
     ctx.fillStyle = `rgb(90, 81, 74)`;
     ctx.fillRect(200, 165, 100, 75);
-    ctx.drawImage(image, 200, 165);
+    ctx.drawImage(image, 220, 185);
 }
 
 let ttsAudio;
